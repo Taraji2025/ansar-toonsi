@@ -7,83 +7,175 @@ const POSTE_COLOR = {
   Attaquant: '#e70013',
 };
 
+const POSTE_ICON = {
+  Gardien:   '🧤',
+  Défenseur: '🛡️',
+  Milieu:    '⚙️',
+  Attaquant: '⚡',
+};
+
+const FLAG_BY_PAYS = {
+  'France': '🇫🇷', 'Allemagne': '🇩🇪', 'Espagne': '🇪🇸',
+  'Italie': '🇮🇹', 'Angleterre': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Portugal': '🇵🇹',
+  'Grèce': '🇬🇷', 'Belgique': '🇧🇪', 'Pays-Bas': '🇳🇱',
+  'Turquie': '🇹🇷', 'Tunisie': '🇹🇳', 'Maroc': '🇲🇦',
+  'Qatar': '🇶🇦', 'Arabie Saoudite': '🇸🇦',
+};
+
 export default function JoueurModal({ joueur, onClose, onEdit, isAdmin }) {
-  const color = POSTE_COLOR[joueur.poste] || '#fff';
+  const color    = POSTE_COLOR[joueur.poste] || '#fff';
+  const posteIcon = POSTE_ICON[joueur.poste] || '⚽';
   const initiales = joueur.nom.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+  const flagClub  = FLAG_BY_PAYS[joueur.pays_club] || '🌍';
 
   return (
     <div
-      style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}
+      className="at-overlay"
       onClick={e => e.target === e.currentTarget && onClose()}
     >
-      <div style={{
-        background: '#12121a', border: `1px solid #1e1e2e`,
-        borderTop: `4px solid ${color}`,
-        borderRadius: 16, width: '100%', maxWidth: 480,
-        maxHeight: '90vh', overflowY: 'auto',
-      }}>
-        {/* Header */}
-        <div style={{ padding: '20px 20px 16px', borderBottom: '1px solid #1e1e2e' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+      <div className="at-modal">
+
+        {/* ── HEADER ── */}
+        <div className="at-modal-header-bg">
+          {/* Glow de couleur en arrière-plan */}
+          <div className="at-modal-header-glow" style={{ background: color }} />
+
+          {/* Bouton fermer */}
+          <button className="at-modal-close" onClick={onClose}>×</button>
+
+          {/* Avatar + Identité */}
+          <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+            <div
+              className="at-modal-avatar"
+              style={{
+                background: color + '20',
+                borderColor: color,
+                color,
+              }}
+            >
+              {joueur.photo
+                ? <img src={joueur.photo} alt={joueur.nom} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                : initiales
+              }
+            </div>
+
+            <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{
-                width: 72, height: 72, borderRadius: '50%',
-                background: color + '25', border: `3px solid ${color}`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 24, fontWeight: 700, color, flexShrink: 0, overflow: 'hidden',
+                fontSize: 22,
+                fontWeight: 800,
+                color: '#fff',
+                marginBottom: 8,
+                lineHeight: 1.1,
               }}>
-                {joueur.photo
-                  ? <img src={joueur.photo} alt={joueur.nom} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  : initiales
-                }
+                {joueur.nom}
               </div>
-              <div>
-                <div style={{ fontSize: 20, fontWeight: 700, color: '#fff', marginBottom: 6 }}>{joueur.nom}</div>
-                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: 10, color, background: color + '20', padding: '3px 10px', borderRadius: 12, fontWeight: 700 }}>{joueur.poste}</span>
-                  {joueur.selection && <span style={{ fontSize: 10, color: '#e70013', background: '#e7001320', padding: '3px 10px', borderRadius: 12, fontWeight: 700 }}>🇹🇳 {joueur.matchs_selection} sél.</span>}
-                </div>
+              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                <span
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    padding: '4px 12px',
+                    borderRadius: 12,
+                    color,
+                    background: color + '20',
+                    border: `1px solid ${color}40`,
+                  }}
+                >
+                  {posteIcon} {joueur.poste}
+                </span>
+                {joueur.selection && (
+                  <span
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 700,
+                      padding: '4px 12px',
+                      borderRadius: 12,
+                      color: '#e70013',
+                      background: '#e7001320',
+                      border: '1px solid #e7001340',
+                    }}
+                  >
+                    🇹🇳 {joueur.matchs_selection} sél.
+                  </span>
+                )}
               </div>
             </div>
-            <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', fontSize: 22 }}>×</button>
           </div>
 
-          <div style={{ marginTop: 14, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <div style={{ fontSize: 12, color: '#888' }}>🏟️ <span style={{ color: '#ccc', fontWeight: 600 }}>{joueur.club}</span> · {joueur.pays_club}</div>
-            <div style={{ fontSize: 12, color: '#888' }}>🎂 <span style={{ color: '#ccc' }}>{joueur.age} ans</span></div>
-            <div style={{ fontSize: 12, color: '#888' }}>📅 Saison <span style={{ color: '#ccc' }}>{joueur.saison}</span></div>
+          {/* Infos rapides */}
+          <div style={{
+            marginTop: 16,
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: 8,
+          }}>
+            <div className="at-info-row" style={{ border: 'none', padding: '6px 0' }}>
+              <span>{flagClub}</span>
+              <span><strong>{joueur.club}</strong> · {joueur.pays_club}</span>
+            </div>
+            <div className="at-info-row" style={{ border: 'none', padding: '6px 0' }}>
+              <span>🎂</span>
+              <span><strong>{joueur.age} ans</strong></span>
+            </div>
+            <div className="at-info-row" style={{ border: 'none', padding: '6px 0' }}>
+              <span>📅</span>
+              <span>Saison <strong>{joueur.saison}</strong></span>
+            </div>
           </div>
         </div>
 
-        {/* Stats */}
-        <div style={{ padding: '16px 20px' }}>
-          <div style={{ fontSize: 11, color: '#555', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Statistiques</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+        {/* ── STATS ── */}
+        <div style={{ padding: '20px' }}>
+          <div style={{
+            fontSize: 10,
+            color: 'var(--text-muted)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.1em',
+            fontWeight: 700,
+            marginBottom: 14,
+          }}>
+            Statistiques saison
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: 10,
+          }}>
             {Object.entries(STATS_LABELS).map(([key, meta]) => {
               const val = joueur.stats[key];
               if (val === undefined) return null;
               if (key === 'clean_sheets' && joueur.poste !== 'Gardien') return null;
               return (
-                <div key={key} style={{
-                  background: '#0a0a0f', borderRadius: 10, padding: '14px 10px',
-                  textAlign: 'center', border: '1px solid #1a1a28',
-                }}>
-                  <div style={{ fontSize: 10, marginBottom: 4 }}>{meta.icon}</div>
-                  <div style={{ fontSize: 24, fontWeight: 700, color }}>{val}</div>
-                  <div style={{ fontSize: 9, color: '#555', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: 2 }}>{meta.label}</div>
+                <div key={key} className="at-modal-stat">
+                  <div className="at-modal-stat-icon">{meta.icon}</div>
+                  <div className="at-modal-stat-val" style={{ color }}>{val}</div>
+                  <div className="at-modal-stat-lbl">{meta.label}</div>
                 </div>
               );
             })}
           </div>
         </div>
 
-        {/* Actions admin */}
+        {/* ── ACTIONS ADMIN ── */}
         {isAdmin && (
-          <div style={{ padding: '0 20px 20px', display: 'flex', gap: 8 }}>
-            <button onClick={() => onEdit(joueur)} style={{
-              flex: 1, padding: '9px 0', background: color, border: 'none',
-              borderRadius: 8, color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer',
-            }}>✏️ Modifier</button>
+          <div style={{ padding: '0 20px 20px' }}>
+            <button
+              onClick={() => onEdit(joueur)}
+              style={{
+                width: '100%',
+                padding: '11px 0',
+                background: color,
+                border: 'none',
+                borderRadius: 10,
+                color: '#fff',
+                fontSize: 14,
+                fontWeight: 700,
+                cursor: 'pointer',
+              }}
+            >
+              ✏️ Modifier
+            </button>
           </div>
         )}
       </div>
