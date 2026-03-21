@@ -1,4 +1,5 @@
 import { STATS_LABELS } from '../data/joueurs';
+import StatRadar from './StatRadar';
 
 const POSTE_COLOR = {
   Gardien:   '#f59e0b',
@@ -124,7 +125,9 @@ export default function JoueurModal({ joueur, onClose, onEdit, isAdmin }) {
           }}>
             Statistiques saison
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+
+          {/* Chips chiffres */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10, marginBottom: 20 }}>
             {Object.entries(STATS_LABELS).map(([key, meta]) => {
               const val = joueur.stats[key];
               if (val === undefined) return null;
@@ -138,6 +141,89 @@ export default function JoueurModal({ joueur, onClose, onEdit, isAdmin }) {
               );
             })}
           </div>
+
+          {/* Radar */}
+          {(() => {
+            const hasStats = Object.values(joueur.stats).some(v => v > 0);
+            if (!hasStats) return (
+              <div style={{ textAlign: 'center', padding: '16px 0', color: 'var(--text-muted)', fontSize: 12 }}>
+                Aucune statistique enregistrée pour cette saison
+              </div>
+            );
+
+            // Définir les axes selon le poste
+            const AXES_BY_POSTE = {
+              Gardien:   [
+                { key: 'matchs',         label: 'Matchs',   max: 40 },
+                { key: 'clean_sheets',   label: 'CS',       max: 20 },
+                { key: 'passes',         label: 'Passes',   max: 5  },
+                { key: 'cartons_jaunes', label: 'CJ',       max: 10 },
+                { key: 'buts',           label: 'Buts',     max: 2  },
+              ],
+              Défenseur: [
+                { key: 'matchs',         label: 'Matchs',   max: 40 },
+                { key: 'buts',           label: 'Buts',     max: 10 },
+                { key: 'passes',         label: 'Passes',   max: 10 },
+                { key: 'cartons_jaunes', label: 'CJ',       max: 10 },
+                { key: 'cartons_rouges', label: 'CR',       max: 3  },
+              ],
+              Milieu:    [
+                { key: 'matchs',         label: 'Matchs',   max: 40 },
+                { key: 'buts',           label: 'Buts',     max: 15 },
+                { key: 'passes',         label: 'Passes',   max: 15 },
+                { key: 'cartons_jaunes', label: 'CJ',       max: 10 },
+                { key: 'cartons_rouges', label: 'CR',       max: 3  },
+              ],
+              Attaquant: [
+                { key: 'matchs',         label: 'Matchs',   max: 40 },
+                { key: 'buts',           label: 'Buts',     max: 30 },
+                { key: 'passes',         label: 'Passes',   max: 15 },
+                { key: 'cartons_jaunes', label: 'CJ',       max: 10 },
+                { key: 'cartons_rouges', label: 'CR',       max: 3  },
+              ],
+            };
+            const axes = AXES_BY_POSTE[joueur.poste] || AXES_BY_POSTE.Milieu;
+
+            return (
+              <div>
+                <div style={{
+                  fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase',
+                  letterSpacing: '0.1em', fontWeight: 700, marginBottom: 12,
+                }}>
+                  Profil statistique
+                </div>
+                <StatRadar axes={axes} data={joueur.stats} color={color} />
+
+                {/* Barres horizontales */}
+                <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {[
+                    { key: 'matchs', label: 'Matchs joués',  icon: '📊', max: 40 },
+                    { key: 'buts',   label: 'Buts',          icon: '⚽', max: joueur.poste === 'Attaquant' ? 30 : 15 },
+                    { key: 'passes', label: 'Passes déc.',   icon: '🎯', max: 15 },
+                  ].map(({ key, label, icon, max }) => {
+                    const val = joueur.stats[key] ?? 0;
+                    const pct = Math.min(val / max * 100, 100);
+                    return (
+                      <div key={key}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 4, color: 'var(--text-dim)' }}>
+                          <span>{icon} {label}</span>
+                          <span style={{ color, fontWeight: 700 }}>{val}</span>
+                        </div>
+                        <div style={{ height: 6, background: 'var(--bg3)', borderRadius: 4, overflow: 'hidden' }}>
+                          <div style={{
+                            height: '100%', width: `${pct}%`,
+                            background: `linear-gradient(90deg, ${color}80, ${color})`,
+                            borderRadius: 4,
+                            transition: 'width 0.6s cubic-bezier(.4,0,.2,1)',
+                          }} />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
         </div>
 
         {isAdmin && (
