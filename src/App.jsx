@@ -2,6 +2,8 @@ import { useState, useMemo } from 'react';
 import { JOUEURS, POSTES, NIVEAUX } from './data/joueurs';
 import JoueurCard from './components/JoueurCard';
 import JoueurModal from './components/JoueurModal';
+import EditJoueurModal from './components/EditJoueurModal';
+import AdminLoginModal from './components/AdminLoginModal';
 import './index.css';
 
 const POSTES_LABELS = {
@@ -20,16 +22,69 @@ const TRIS = [
   { val: 'age',    label: '🎂 Âge' },
 ];
 
+const STORAGE_KEY = 'at_joueurs_v8';
+
+function loadJoueurs() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : JOUEURS;
+  } catch {
+    return JOUEURS;
+  }
+}
+
 export default function App() {
-  const [selected, setSelected] = useState(null);
-  const [search,   setSearch]   = useState('');
-  const [poste,    setPoste]    = useState('');
-  const [niveau,   setNiveau]   = useState('');
-  const [selOnly,  setSelOnly]  = useState(false);
-  const [tri,      setTri]      = useState('');
+  const [joueurs,   setJoueurs]   = useState(loadJoueurs);
+  const [selected,  setSelected]  = useState(null);
+  const [editing,   setEditing]   = useState(null);
+  const [search,    setSearch]    = useState('');
+  const [poste,     setPoste]     = useState('');
+  const [niveau,    setNiveau]    = useState('');
+  const [selOnly,   setSelOnly]   = useState(false);
+  const [tri,       setTri]       = useState('');
+  const [isAdmin,   setIsAdmin]   = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  // secret : clic 5x sur le logo
+  const [logoClicks, setLogoClicks] = useState(0);
+
+  function handleLogoClick() {
+    const next = logoClicks + 1;
+    setLogoClicks(next);
+    if (next >= 5) {
+      setLogoClicks(0);
+      if (isAdmin) {
+        setIsAdmin(false);
+      } else {
+        setShowLogin(true);
+      }
+    }
+  }
+
+  function saveJoueurs(data) {
+    setJoueurs(data);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+
+  function handleEdit(joueur) {
+    setSelected(null);
+    setEditing(joueur);
+  }
+
+  function handleSave(updated) {
+    const data = joueurs.map(j => j.id === updated.id ? updated : j);
+    saveJoueurs(data);
+    setEditing(null);
+  }
+
+  function resetData() {
+    if (confirm('Réinitialiser toutes les données ?')) {
+      localStorage.removeItem(STORAGE_KEY);
+      setJoueurs(JOUEURS);
+    }
+  }
 
   const filtered = useMemo(() => {
-    let list = JOUEURS;
+    let list = joueurs;
     if (search.trim()) {
       const q = search.toLowerCase();
       list = list.filter(j =>
@@ -47,11 +102,11 @@ export default function App() {
       list = [...list].sort((a, b) => b.stats[tri] - a.stats[tri]);
     }
     return list;
-  }, [search, poste, niveau, selOnly, tri]);
+  }, [joueurs, search, poste, niveau, selOnly, tri]);
 
-  const totalButs   = JOUEURS.reduce((s, j) => s + j.stats.buts,   0);
-  const totalMatchs = JOUEURS.reduce((s, j) => s + j.stats.matchs, 0);
-  const enSelection = JOUEURS.filter(j => j.selection).length;
+  const totalButs   = joueurs.reduce((s, j) => s + j.stats.buts,   0);
+  const totalMatchs = joueurs.reduce((s, j) => s + j.stats.matchs, 0);
+  const enSelection = joueurs.filter(j => j.selection).length;
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
@@ -59,26 +114,48 @@ export default function App() {
       {/* ── HEADER ── */}
       <header className="at-header">
         <div className="at-header-inner">
-          <div className="at-logo">
+          <div className="at-logo" onClick={handleLogoClick} style={{ cursor: 'pointer', userSelect: 'none' }}>
             <div className="at-logo-flag">🇹🇳</div>
             <div>
               <div className="at-logo-text">Ansar <span>Toonsi</span></div>
-              <div className="at-logo-sub">Diaspora · Saison 2025-26</div>
+              <div className="at-logo-sub">
+                {isAdmin ? '🔐 Mode Admin · ' : ''}Diaspora · 2025-26
+              </div>
             </div>
           </div>
 
-          <div className="at-stats-row">
-            {[
-              { l: 'Joueurs',       v: JOUEURS.length, icon: '👥' },
-              { l: 'En sélection',  v: enSelection,     icon: '🏆' },
-              { l: 'Buts',          v: totalButs,        icon: '⚽' },
-              { l: 'Matchs',        v: totalMatchs,      icon: '📊' },
-            ].map(s => (
-              <div key={s.l} className="at-stat-chip">
-                <div className="at-stat-chip-val">{s.v}</div>
-                <div className="at-stat-chip-lbl">{s.l}</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            {isAdmin && (
+              <div style={{ display: 'flex', gap: 6 }}>
+                <button onClick={resetData} style={{
+                  padding: '5px 10px', fontSize: 10, fontWeight: 700,
+                  background: 'var(--bg3)', border: '1px solid var(--border)',
+                  borderRadius: 8, color: 'var(--text-muted)', cursor: 'pointer',
+                }}>
+                  🔄 Reset
+                </button>
+                <button onClick={() => setIsAdmin(false)} style={{
+                  padding: '5px 10px', fontSize: 10, fontWeight: 700,
+                  background: '#e7001320', border: '1px solid #e7001340',
+                  borderRadius: 8, color: '#e70013', cursor: 'pointer',
+                }}>
+                  🔓 Admin ON
+                </button>
               </div>
-            ))}
+            )}
+            <div className="at-stats-row">
+              {[
+                { l: 'Joueurs',      v: joueurs.length },
+                { l: 'En sélection', v: enSelection    },
+                { l: 'Buts',         v: totalButs      },
+                { l: 'Matchs',       v: totalMatchs    },
+              ].map(s => (
+                <div key={s.l} className="at-stat-chip">
+                  <div className="at-stat-chip-val">{s.v}</div>
+                  <div className="at-stat-chip-lbl">{s.l}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </header>
@@ -133,15 +210,31 @@ export default function App() {
 
       {/* ── FOOTER ── */}
       <footer className="at-footer">
-        Ansar Toonsi · {JOUEURS.length} joueurs · Données Transfermarkt / @tun.talents · v8
+        Ansar Toonsi · {joueurs.length} joueurs · Transfermarkt / @tun.talents · v8
       </footer>
 
-      {selected && (
+      {/* ── MODALS ── */}
+      {showLogin && (
+        <AdminLoginModal
+          onSuccess={() => { setIsAdmin(true); setShowLogin(false); }}
+          onClose={() => setShowLogin(false)}
+        />
+      )}
+
+      {selected && !editing && (
         <JoueurModal
           joueur={selected}
           onClose={() => setSelected(null)}
-          onEdit={() => {}}
-          isAdmin={false}
+          onEdit={handleEdit}
+          isAdmin={isAdmin}
+        />
+      )}
+
+      {editing && (
+        <EditJoueurModal
+          joueur={editing}
+          onSave={handleSave}
+          onClose={() => setEditing(null)}
         />
       )}
     </div>

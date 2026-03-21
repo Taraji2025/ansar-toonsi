@@ -452,8 +452,40 @@ body {
   color: var(--text-muted);
 }
 
+/* ── EDIT FORM ── */
+.at-edit-section-title {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.at-edit-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.at-edit-row label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.at-edit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 640px) {
   .at-stats-row { display: none; }
   .at-grid { padding: 16px 12px; gap: 12px; }
+  .at-edit-grid { grid-template-columns: 1fr; }
 }
