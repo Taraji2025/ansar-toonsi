@@ -122,6 +122,42 @@ body {
   margin-top: 2px;
 }
 
+/* ── ONGLETS ── */
+.at-tabs {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+}
+
+.at-tabs-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 4px;
+}
+
+.at-tab {
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-bottom: -1px;
+}
+
+.at-tab:hover {
+  color: var(--text-dim);
+}
+
+.at-tab.active {
+  color: #fff;
+  border-bottom-color: var(--red);
+}
+
 /* ── FILTRES ── */
 .at-filters {
   background: var(--bg2);

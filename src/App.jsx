@@ -4,6 +4,7 @@ import JoueurCard from './components/JoueurCard';
 import JoueurModal from './components/JoueurModal';
 import EditJoueurModal from './components/EditJoueurModal';
 import AdminLoginModal from './components/AdminLoginModal';
+import Classement from './components/Classement';
 import './index.css';
 
 const POSTES_LABELS = {
@@ -44,6 +45,7 @@ export default function App() {
   const [tri,       setTri]       = useState('');
   const [isAdmin,   setIsAdmin]   = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [onglet,    setOnglet]    = useState('joueurs'); // 'joueurs' | 'classement'
   // secret : clic 5x sur le logo
   const [logoClicks, setLogoClicks] = useState(0);
 
@@ -160,8 +162,26 @@ export default function App() {
         </div>
       </header>
 
+      {/* ── ONGLETS ── */}
+      <div className="at-tabs">
+        <div className="at-tabs-inner">
+          {[
+            { id: 'joueurs',    label: '👥 Joueurs'     },
+            { id: 'classement', label: '🏆 Classements' },
+          ].map(t => (
+            <button
+              key={t.id}
+              className={`at-tab${onglet === t.id ? ' active' : ''}`}
+              onClick={() => setOnglet(t.id)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* ── FILTRES ── */}
-      <div className="at-filters">
+      {onglet === 'joueurs' && <div className="at-filters">
         <div className="at-filters-inner">
           <input
             className="at-input"
@@ -191,10 +211,13 @@ export default function App() {
             {filtered.length} joueur{filtered.length > 1 ? 's' : ''}
           </span>
         </div>
-      </div>
+      </div>}
+
+      {/* ── CLASSEMENT ── */}
+      {onglet === 'classement' && <Classement joueurs={joueurs} />}
 
       {/* ── GRILLE ── */}
-      {filtered.length === 0 ? (
+      {onglet === 'joueurs' && (filtered.length === 0 ? (
         <div className="at-empty">
           <div style={{ fontSize: 40, marginBottom: 12 }}>🔍</div>
           <div>Aucun joueur trouvé</div>
@@ -206,7 +229,7 @@ export default function App() {
             <JoueurCard key={j.id} joueur={j} onClick={setSelected} />
           ))}
         </div>
-      )}
+      ))}
 
       {/* ── FOOTER ── */}
       <footer className="at-footer">
