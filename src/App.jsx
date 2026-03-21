@@ -4,11 +4,6 @@ import JoueurCard from './components/JoueurCard';
 import JoueurModal from './components/JoueurModal';
 import './index.css';
 
-const R = '#e70013';
-const BG = '#0a0a0f';
-const BG2 = '#12121a';
-const BORDER = '#1e1e2e';
-
 export default function App() {
   const [joueurs, setJoueurs] = useState(
     () => JSON.parse(localStorage.getItem('at_joueurs') || 'null') || JOUEURS
@@ -42,98 +37,97 @@ export default function App() {
   const totalMatchs = joueurs.reduce((s, j) => s + j.stats.matchs, 0);
   const enSelection = joueurs.filter(j => j.selection).length;
 
+  const POSTES_LABELS = {
+    '': 'Tous les postes',
+    Gardien: '🧤 Gardien',
+    Défenseur: '🛡️ Défenseur',
+    Milieu: '⚙️ Milieu',
+    Attaquant: '⚡ Attaquant',
+  };
+
   return (
-    <div style={{ minHeight: '100vh', background: BG }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
 
       {/* ── HEADER ── */}
-      <div style={{ background: BG2, borderBottom: `1px solid ${BORDER}`, padding: '14px 20px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span style={{ fontSize: 28 }}>🇹🇳</span>
+      <header className="at-header">
+        <div className="at-header-inner">
+          <div className="at-logo">
+            <div className="at-logo-flag">🇹🇳</div>
             <div>
-              <div style={{ fontSize: 20, fontWeight: 800, color: '#fff', letterSpacing: '-0.5px' }}>
-                Ansar <span style={{ color: R }}>Toonsi</span>
+              <div className="at-logo-text">
+                Ansar <span>Toonsi</span>
               </div>
-              <div style={{ fontSize: 10, color: '#555', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-                Stats des joueurs tunisiens
-              </div>
+              <div className="at-logo-sub">Stats · Saison 2024-25</div>
             </div>
           </div>
-          <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
+
+          <div className="at-stats-row">
             {[
-              { l: 'Joueurs',       v: joueurs.length },
-              { l: 'En sélection', v: enSelection },
-              { l: 'Buts',         v: totalButs },
-              { l: 'Matchs',       v: totalMatchs },
+              { l: 'Joueurs',       v: joueurs.length,  icon: '👥' },
+              { l: 'En sélection', v: enSelection,      icon: '🏆' },
+              { l: 'Buts',          v: totalButs,        icon: '⚽' },
+              { l: 'Matchs',        v: totalMatchs,      icon: '📊' },
             ].map(s => (
-              <div key={s.l} style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: 18, fontWeight: 700, color: R }}>{s.v}</div>
-                <div style={{ fontSize: 9, color: '#555', textTransform: 'uppercase', letterSpacing: '0.04em' }}>{s.l}</div>
+              <div key={s.l} className="at-stat-chip">
+                <div className="at-stat-chip-val">{s.v}</div>
+                <div className="at-stat-chip-lbl">{s.l}</div>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </header>
 
       {/* ── FILTRES ── */}
-      <div style={{ background: BG2, borderBottom: `1px solid ${BORDER}`, padding: '10px 20px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+      <div className="at-filters">
+        <div className="at-filters-inner">
           <input
+            className="at-input"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            placeholder="🔍 Rechercher un joueur, un club..."
-            style={{ flex: 1, minWidth: 200, background: BG, border: `1px solid ${BORDER}`, borderRadius: 8, color: '#f0f0f0', fontSize: 13, padding: '8px 12px', outline: 'none' }}
+            placeholder="🔍  Joueur, club, pays..."
           />
           <select
+            className="at-select"
             value={poste}
             onChange={e => setPoste(e.target.value)}
-            style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 8, color: '#f0f0f0', fontSize: 12, padding: '8px 12px', outline: 'none', cursor: 'pointer' }}
           >
-            <option value="">Tous les postes</option>
-            {POSTES.map(p => <option key={p} value={p}>{p}</option>)}
+            {['', ...POSTES].map(p => (
+              <option key={p} value={p}>{POSTES_LABELS[p] || p}</option>
+            ))}
           </select>
           <button
+            className={`at-btn-filter${selOnly ? ' active' : ''}`}
             onClick={() => setSelOnly(s => !s)}
-            style={{
-              padding: '8px 14px', borderRadius: 8, fontSize: 12, cursor: 'pointer',
-              background: selOnly ? R : BG,
-              border: `1px solid ${selOnly ? R : BORDER}`,
-              color: selOnly ? '#fff' : '#888',
-              fontWeight: selOnly ? 700 : 400,
-              transition: 'all 0.15s',
-            }}
-          >🇹🇳 Sélection</button>
-          <div style={{ fontSize: 11, color: '#555' }}>
+          >
+            🇹🇳 Sélection
+          </button>
+          <span className="at-count">
             {filtered.length} joueur{filtered.length > 1 ? 's' : ''}
-          </div>
+          </span>
         </div>
       </div>
 
       {/* ── GRILLE ── */}
-      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '20px 16px' }}>
-        {filtered.length === 0 ? (
-          <div style={{ textAlign: 'center', color: '#555', fontSize: 13, padding: 60 }}>
-            Aucun joueur trouvé
+      {filtered.length === 0 ? (
+        <div className="at-empty">
+          <div style={{ fontSize: 40, marginBottom: 12 }}>🔍</div>
+          <div>Aucun joueur trouvé</div>
+          <div style={{ fontSize: 12, marginTop: 6, color: '#444' }}>
+            Essaie un autre filtre
           </div>
-        ) : (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))',
-            gap: 14,
-          }}>
-            {filtered.map(j => (
-              <JoueurCard key={j.id} joueur={j} onClick={setSelected} />
-            ))}
-          </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className="at-grid">
+          {filtered.map(j => (
+            <JoueurCard key={j.id} joueur={j} onClick={setSelected} />
+          ))}
+        </div>
+      )}
 
       {/* ── FOOTER ── */}
-      <div style={{ borderTop: `1px solid ${BORDER}`, padding: '16px 20px', textAlign: 'center' }}>
-        <div style={{ fontSize: 11, color: '#444' }}>
-          Ansar Toonsi · Saison 2024-25 · Données mises à jour manuellement
-        </div>
-      </div>
+      <footer className="at-footer">
+        Ansar Toonsi · Saison 2024-25 · Données mises à jour manuellement
+      </footer>
 
       {selected && (
         <JoueurModal
