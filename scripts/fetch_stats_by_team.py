@@ -46,8 +46,58 @@ AF_TEAMS_CACHE = Path("data/cache/af_teams_by_league.json")  # league_id → [te
 TEAM_IDS_CACHE = Path("data/cache/af_team_ids.json")          # club_csv → af_team_id | None
 STATS_OUTPUT   = Path("data/cache/stats_joueurs.json")
 
-FUZZY_THRESHOLD = 0.80
+FUZZY_THRESHOLD = 0.78
 SLEEP_AF   = 1.2   # entre requêtes API-Football
+
+# Substitutions FR → nom AF (avant le matching fuzzy)
+CLUB_NAME_SUBS: dict[str, str] = {
+    "Paris SG":          "Paris Saint-Germain",
+    "Ol. Lyonnais":      "Lyon",
+    "OGC Nice":          "Nice",
+    "Stade Rennais":     "Rennes",
+    "LOSC Lille":        "Lille",
+    "Lille OSC":         "Lille",
+    "AS St-Étienne":     "Saint Etienne",
+    "AS Saint-Étienne":  "Saint Etienne",
+    "Montpellier HSC":   "Montpellier",
+    "FC Metz":           "Metz",
+    "Angers SCO":        "Angers",
+    "E. Francfort":      "Eintracht Frankfurt",
+    "Eintracht Francfort": "Eintracht Frankfurt",
+    "FC Augsbourg":      "FC Augsburg",
+    "Hambourg SV":       "Hamburger SV",
+    "Bologne FC":        "Bologna",
+    "Hellas Vérone":     "Hellas Verona",
+    "FC Bâle":           "FC Basel 1893",
+    "RB Salzbourg":      "RB Salzburg",
+    "FC Copenhague":     "FC Copenhagen",
+    "Norwich City":      "Norwich",
+    "Quevilly-Rouen":    "Quevilly",
+    "Stade Lavallois":   "Laval",
+    "Niort":             "Niort",
+    "R. Kragujevac":     "Radnicki Kragujevac",
+    "Troyes AC":         "Estac Troyes",
+    "E. Braunschweig":   "Eintracht Braunschweig",
+    "Young Boys Berne":  "BSC Young Boys",
+    "Rapid Vienne":      "Rapid Wien",
+    "LASK Linz":         "LASK",
+    "BK Häcken":         "BK Häcken",
+    "Djurgårdens IF":    "Djurgardens",
+    "IFK Norrköping":    "IFK Norrkoping",
+    "Shakhtar Donetsk":  "Shakhtar",
+    "Vancouver Whitecaps": "Vancouver Whitecaps",
+    "Inter Miami":       "Inter Miami",
+    "San Diego FC":      "San Diego",
+    "Al Ahly":           "Al Ahly",
+    "Zamalek SC":        "Zamalek",
+    "Kuwait SC":         "Al Kuwait",
+    "Kasimpasa":         "Kasimpasa",
+    "KAS Eupen":         "Eupen",
+    "Cercle Bruges":     "Cercle Brugge",
+    "Le Havre AC":       "Le Havre",
+    "Parme Calcio":      "Parma",
+    "FC Lorient":        "Lorient",
+}
 SLEEP_TSDB = 0.5   # TheSportsDB est plus permissif
 
 # ---------------------------------------------------------------------------
@@ -59,7 +109,6 @@ AF_LEAGUES = {
     61:  "Ligue 1 (FRA)",
     62:  "Ligue 2 (FRA)",
     63:  "National (FRA D3)",
-    64:  "National 2 (FRA D4)",
     # Allemagne
     78:  "Bundesliga (ALL)",
     79:  "2. Bundesliga (ALL)",
@@ -190,14 +239,33 @@ def save_af_teams_by_league(data: dict) -> None:
 # Phase 1 — Build team_ids via ligues
 # ---------------------------------------------------------------------------
 
+def normalize_club(name: str) -> str:
+    """Applique les substitutions FR→AF avant le matching."""
+    return CLUB_NAME_SUBS.get(name, name)
+
+
+def is_womens_team(team_name: str) -> bool:
+    """Exclut les équipes féminines (suffixe W, Women, Féminin...)."""
+    n = team_name.strip()
+    return (
+        n.endswith(" W")
+        or " Women" in n
+        or "Féminin" in n
+        or n.endswith(" F")
+    )
+
+
 def best_match_in_league_teams(club_csv: str, league_teams: list[dict]) -> int | None:
     """Trouve le meilleur team_id pour un club parmi les équipes d'une ligue."""
+    query = normalize_club(club_csv)
     best_id, best_score = None, 0.0
     for t in league_teams:
-        for candidate in [t.get("name", ""), t.get("code", ""), t.get("shortName", "")]:
+        if is_womens_team(t.get("name", "")):
+            continue
+        for candidate in [t.get("name", ""), t.get("shortName", "")]:
             if not candidate:
                 continue
-            s = fuzzy(club_csv, candidate)
+            s = fuzzy(query, candidate)
             if s > best_score:
                 best_score = s
                 best_id = t["id"]
