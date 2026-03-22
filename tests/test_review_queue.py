@@ -1,25 +1,25 @@
-from scripts.dedupe import split_candidates
+from scripts.dedupe import split
 
 
-def test_split_candidates_separates_exact_matches_and_review_items():
-    candidates = [
+def test_split_separates_strong_and_review():
+    results = [
         {
             "player_id_a": "tn001",
             "player_id_b": "tn004",
-            "similarity_score": 1.0,
-            "reason": "exact_match",
+            "score": 1.0,
+            "label": "strong_match",
         },
         {
             "player_id_a": "tn010",
             "player_id_b": "tn011",
-            "similarity_score": 0.91,
-            "reason": "high_similarity",
+            "score": 0.91,
+            "label": "review",
         },
     ]
 
-    confirmed, needs_review = split_candidates(candidates)
+    strong, review = split(results)
 
-    assert len(confirmed) == 1
-    assert len(needs_review) == 1
-    assert confirmed[0]["reason"] == "exact_match"
-    assert needs_review[0]["reason"] == "high_similarity"
+    assert len(strong) == 1
+    assert len(review) == 1
+    assert strong[0]["label"] == "strong_match"
+    assert review[0]["label"] == "review"

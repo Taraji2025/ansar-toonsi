@@ -1,26 +1,28 @@
-from scripts.dedupe import similarity, find_duplicate_candidates
+from scripts.dedupe import similarity, find_candidates
 
 
-def test_similarity_exact_match():
-    assert similarity("HANNIBAL MEJBRI", "HANNIBAL MEJBRI") == 1.0
+def test_similarity_high():
+    assert similarity("BEN ROMDHANE", "BEN ROMDHANE") == 1.0
 
 
-def test_find_duplicate_candidates_exact_match():
+def test_find_candidates_exact_match():
     players = [
         {
             "player_id": "tn001",
-            "full_name": "Hannibal Mejbri",
             "normalized_name": "HANNIBAL MEJBRI",
+            "date_of_birth": "2003-01-21",
+            "nationality": "Tunisia",
         },
         {
             "player_id": "tn004",
-            "full_name": "Hannibal Mejbri",
             "normalized_name": "HANNIBAL MEJBRI",
+            "date_of_birth": "2003-01-21",
+            "nationality": "Tunisia",
         },
     ]
 
-    candidates = find_duplicate_candidates(players, threshold=0.88)
+    results = find_candidates(players)
 
-    assert len(candidates) == 1
-    assert candidates[0]["reason"] == "exact_match"
-    assert candidates[0]["similarity_score"] == 1.0
+    assert len(results) == 1
+    assert results[0]["label"] == "strong_match"
+    assert results[0]["score"] == 1.0
