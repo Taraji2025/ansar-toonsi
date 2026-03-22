@@ -19,6 +19,19 @@ def slugify_name(name: str) -> str:
     return normalized.replace(" ", "_")
 
 
+def to_int(value: str) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return 0
+
+
+def per_90(stat_value: int, minutes_played: int) -> float:
+    if minutes_played <= 0:
+        return 0.0
+    return round((stat_value * 90) / minutes_played, 3)
+
+
 def load_players():
     if not INPUT_CSV.exists():
         raise FileNotFoundError(f"Fichier introuvable: {INPUT_CSV}")
@@ -35,8 +48,22 @@ def enrich_players(players: list[dict]) -> list[dict]:
 
     for player in players:
         item = player.copy()
+
         item["normalized_name"] = normalize_name(player["full_name"])
         item["slug"] = slugify_name(player["full_name"])
+
+        appearances = to_int(player.get("appearances"))
+        minutes_played = to_int(player.get("minutes_played"))
+        goals = to_int(player.get("goals"))
+        assists = to_int(player.get("assists"))
+
+        item["appearances"] = appearances
+        item["minutes_played"] = minutes_played
+        item["goals"] = goals
+        item["assists"] = assists
+        item["goals_per_90"] = per_90(goals, minutes_played)
+        item["assists_per_90"] = per_90(assists, minutes_played)
+
         enriched.append(item)
 
     return enriched
