@@ -64,7 +64,19 @@ def find_candidates(players):
 
             results.append({
                 "player_id_a": a["player_id"],
+                "full_name_a": a.get("full_name", ""),
+                "normalized_name_a": a.get("normalized_name", ""),
+                "date_of_birth_a": a.get("date_of_birth", ""),
+                "nationality_a": a.get("nationality", ""),
+                "current_club_a": a.get("current_club", ""),
+                "primary_position_a": a.get("primary_position", ""),
                 "player_id_b": b["player_id"],
+                "full_name_b": b.get("full_name", ""),
+                "normalized_name_b": b.get("normalized_name", ""),
+                "date_of_birth_b": b.get("date_of_birth", ""),
+                "nationality_b": b.get("nationality", ""),
+                "current_club_b": b.get("current_club", ""),
+                "primary_position_b": b.get("primary_position", ""),
                 "score": score,
                 "label": label
             })
@@ -87,6 +99,7 @@ def split(results):
 
 def save(results, review):
     OUTPUT_CSV.parent.mkdir(parents=True, exist_ok=True)
+    REVIEW_JSON.parent.mkdir(parents=True, exist_ok=True)
 
     if results:
         with OUTPUT_CSV.open("w", newline="", encoding="utf-8") as f:
@@ -95,7 +108,7 @@ def save(results, review):
             writer.writerows(results)
 
     with REVIEW_JSON.open("w", encoding="utf-8") as f:
-        json.dump({"count": len(review), "items": review}, f, indent=2)
+        json.dump({"count": len(review), "items": review}, f, indent=2, ensure_ascii=False)
 
 
 def main():
