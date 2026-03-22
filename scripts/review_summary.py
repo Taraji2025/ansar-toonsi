@@ -26,9 +26,9 @@ def print_review_summary(data: dict):
     for idx, item in enumerate(items, start=1):
         player_a = item.get("player_id_a", "?")
         player_b = item.get("player_id_b", "?")
-        score = item.get("similarity_score", "?")
-        reason = item.get("reason", "?")
-        print(f"{idx}. {player_a} vs {player_b} — score {score} — {reason}")
+        score = item.get("score", "?")
+        label = item.get("label", "?")
+        print(f"{idx}. {player_a} vs {player_b} — score {score} — {label}")
 
 
 def main():

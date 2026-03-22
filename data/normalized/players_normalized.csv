@@ -1,4 +1,151 @@
-player_id,full_name,current_club,primary_position,date_of_birth,nationality,appearances,minutes_played,goals,assists,normalized_name,slug,goals_per_90,assists_per_90
-tn001,Hannibal Mejbri,Sevilla,Midfielder,2003-01-21,Tunisia,18,1040,2,3,HANNIBAL MEJBRI,HANNIBAL_MEJBRI,0.173,0.26
-tn002,Elias Achouri,Copenhagen,Winger,1999-02-10,Tunisia,22,1670,5,7,ELIAS ACHOURI,ELIAS_ACHOURI,0.269,0.377
-tn003,Montasr Talbi,Lorient,Defender,1998-05-25,Tunisia,20,1800,1,0,MONTASR TALBI,MONTASR_TALBI,0.05,0.0
+player_id,source_rank,full_name,normalized_name,slug,current_club,country_raw,country_code_guess,nationality,primary_position,category,date_of_birth,appearances,minutes_played,goals,assists,goals_per_90,assists_per_90
+raw_1,1,Ellyes Skhiri,ELLYES SKHIRI,ELLYES_SKHIRI,Eintracht Francfort,🇩🇪 ALL,ALL,ALL,MDC,Elite A,,0,0,0,0,0.0,0.0
+raw_2,2,Montassar Talbi,MONTASSAR TALBI,MONTASSAR_TALBI,FC Lorient,🇫🇷 FRA,FRA,FRA,DC,Elite A,,0,0,0,0,0.0,0.0
+raw_3,3,Hannibal Mejbri,HANNIBAL MEJBRI,HANNIBAL_MEJBRI,Burnley FC,🏴 ANG,ANG,ANG,MO,Elite A,,0,0,0,0,0.0,0.0
+raw_4,4,Rani Khedira,RANI KHEDIRA,RANI_KHEDIRA,Union Berlin,🇩🇪 ALL,ALL,ALL,MDC,Elite A,,0,0,0,0,0.0,0.0
+raw_5,5,Ismaël Gharbi,ISMAËL GHARBI,ISMAËL_GHARBI,FC Augsbourg,🇩🇪 ALL,ALL,ALL,MO,Elite A,,0,0,0,0,0.0,0.0
+raw_6,6,Ali Abdi,ALI ABDI,ALI_ABDI,OGC Nice,🇫🇷 FRA,FRA,FRA,DG,Elite A,,0,0,0,0,0.0,0.0
+raw_7,7,Elias Achouri,ELIAS ACHOURI,ELIAS_ACHOURI,FC Copenhague,🇩🇰 DAN,DAN,DAN,AI,Elite A,,0,0,0,0,0.0,0.0
+raw_8,8,Aïssa Laïdouni,AÏSSA LAÏDOUNI,AÏSSA_LAÏDOUNI,Al-Wakrah SC,🇶🇦 QAT,QAT,QAT,MC,Elite A,,0,0,0,0,0.0,0.0
+raw_9,9,Hamza Rafia,HAMZA RAFIA,HAMZA_RAFIA,Lecce,🇮🇹 ITA,ITA,ITA,MO,Elite A,,0,0,0,0,0.0,0.0
+raw_10,10,Anis Ben Slimane,ANIS BEN SLIMANE,ANIS_BEN_SLIMANE,Norwich City,🏴 ANG,ANG,ANG,MC,Elite A,,0,0,0,0,0.0,0.0
+raw_11,11,Elias Saad,ELIAS SAAD,ELIAS_SAAD,FC Augsbourg,🇩🇪 ALL,ALL,ALL,AI,Elite A,,0,0,0,0,0.0,0.0
+raw_12,12,Sayfallah Ltaief,SAYFALLAH LTAIEF,SAYFALLAH_LTAIEF,FC Twente,🇳🇱 PBA,PBA,PBA,AI,Elite A,,0,0,0,0,0.0,0.0
+raw_13,13,M. Ali Ben Romdhane,M. ALI BEN ROMDHANE,M._ALI_BEN_ROMDHANE,Al Ahly,🇪🇬 EGY,EGY,EGY,MC,Elite A,,0,0,0,0,0.0,0.0
+raw_14,14,Alaa Ghram,ALAA GHRAM,ALAA_GHRAM,Shakhtar Donetsk,🇺🇦 UKR,UKR,UKR,DC,Elite A,,0,0,0,0,0.0,0.0
+raw_15,15,Moutaz Neffati,MOUTAZ NEFFATI,MOUTAZ_NEFFATI,IFK Norrköping,🇸🇪 SUE,SUE,SUE,DD,Elite A,,0,0,0,0,0.0,0.0
+raw_16,16,Yan Valery,YAN VALERY,YAN_VALERY,Young Boys Berne,🇨🇭 SUI,SUI,SUI,DD,Elite A,,0,0,0,0,0.0,0.0
+raw_17,17,Dylan Bronn,DYLAN BRONN,DYLAN_BRONN,Servette FC,🇨🇭 SUI,SUI,SUI,DC,Elite A,,0,0,0,0,0.0,0.0
+raw_18,18,Mohamed Belhadj M.,MOHAMED BELHADJ M.,MOHAMED_BELHADJ_M.,FC Lugano,🇨🇭 SUI,SUI,SUI,MDC,Elite A,,0,0,0,0,0.0,0.0
+raw_19,19,Sebastian Tounekti,SEBASTIAN TOUNEKTI,SEBASTIAN_TOUNEKTI,Celtic FC,🏴 ECO,ECO,ECO,AI,Elite A,,0,0,0,0,0.0,0.0
+raw_20,20,Louay Ben Farhat,LOUAY BEN FARHAT,LOUAY_BEN_FARHAT,Karlsruher SC,🇩🇪 ALL,ALL,ALL,BU,Elite A,,0,0,0,0,0.0,0.0
+raw_21,21,Nader Ghandri,NADER GHANDRI,NADER_GHANDRI,Akhmat Grozny,🇷🇺 RUS,RUS,RUS,DC,Elite A,,0,0,0,0,0.0,0.0
+raw_22,22,Hazem Mastouri,HAZEM MASTOURI,HAZEM_MASTOURI,D. Makhachkala,🇷🇺 RUS,RUS,RUS,BU,Elite A,,0,0,0,0,0.0,0.0
+raw_23,23,Ferjani Sassi,FERJANI SASSI,FERJANI_SASSI,Al-Gharafa,🇶🇦 QAT,QAT,QAT,MC,Elite A,,0,0,0,0,0.0,0.0
+raw_24,24,Youssef Msakni,YOUSSEF MSAKNI,YOUSSEF_MSAKNI,Al-Arabi SC,🇶🇦 QAT,QAT,QAT,AI,Elite A,,0,0,0,0,0.0,0.0
+raw_25,25,Mortadha Ben Ouanes,MORTADHA BEN OUANES,MORTADHA_BEN_OUANES,Kasimpasa,🇹🇷 TUR,TUR,TUR,DG,Elite A,,0,0,0,0,0.0,0.0
+raw_26,26,Firas Belarbi,FIRAS BELARBI,FIRAS_BELARBI,Sharjah FC,🇦🇪 EAU,EAU,EAU,MO,Elite A,,0,0,0,0,0.0,0.0
+raw_27,27,Saad Bguir,SAAD BGUIR,SAAD_BGUIR,Al-Wehda,🇸🇦 ARA,ARA,ARA,MO,Elite A,,0,0,0,0,0.0,0.0
+raw_28,28,Rayan Elloumi,RAYAN ELLOUMI,RAYAN_ELLOUMI,Vancouver Whitecaps,🇨🇦 CAN,CAN,CAN,BU,Elite A,,0,0,0,0,0.0,0.0
+raw_29,29,Wassim Slama,WASSIM SLAMA,WASSIM_SLAMA,Paris SG,🇫🇷 FRA,FRA,FRA,MO,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_30,30,Slim Bouaskar,SLIM BOUASKAR,SLIM_BOUASKAR,AS Roma,🇮🇹 ITA,ITA,ITA,GB,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_31,31,Thomas Zouaghi,THOMAS ZOUAGHI,THOMAS_ZOUAGHI,Sassuolo,🇮🇹 ITA,ITA,ITA,GB,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_32,32,Mayssam Benama,MAYSSAM BENAMA,MAYSSAM_BENAMA,AS Monaco,🇫🇷 FRA,FRA,FRA,MC,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_33,33,Dhirar Brik,DHIRAR BRIK,DHIRAR_BRIK,FC Südtirol,🇮🇹 ITA,ITA,ITA,MDC,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_34,34,Adam Ghellab,ADAM GHELLAB,ADAM_GHELLAB,Paris SG,🇫🇷 FRA,FRA,FRA,MC,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_35,35,Khalil Ayari,KHALIL AYARI,KHALIL_AYARI,Paris SG,🇫🇷 FRA,FRA,FRA,BU,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_36,36,Kelyan Yahia,KELYAN YAHIA,KELYAN_YAHIA,Ol. Lyonnais,🇫🇷 FRA,FRA,FRA,DC,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_37,37,Ali Jaber,ALI JABER,ALI_JABER,Bologne FC,🇮🇹 ITA,ITA,ITA,DC,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_38,38,Amine Saïd,AMINE SAÏD,AMINE_SAÏD,Bologne FC,🇮🇹 ITA,ITA,ITA,BU,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_39,39,Najd Ajroud,NAJD AJROUD,NAJD_AJROUD,AS Monaco,🇫🇷 FRA,FRA,FRA,AI,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_40,40,Mehdi Tlili,MEHDI TLILI,MEHDI_TLILI,AS Monaco,🇫🇷 FRA,FRA,FRA,DG,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_41,41,Yanis Smolarz,YANIS SMOLARZ,YANIS_SMOLARZ,AS Monaco,🇫🇷 FRA,FRA,FRA,GB,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_42,42,Chaïm El Djebali,CHAÏM EL DJEBALI,CHAÏM_EL_DJEBALI,Ol. Lyonnais,🇫🇷 FRA,FRA,FRA,MO,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_43,43,Jibril Othman,JIBRIL OTHMAN,JIBRIL_OTHMAN,AS St-Étienne,🇫🇷 FRA,FRA,FRA,BU,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_44,44,Béchir Yacoub,BÉCHIR YACOUB,BÉCHIR_YACOUB,AS Monaco,🇫🇷 FRA,FRA,FRA,AI,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_45,45,Rayane Messellem,RAYANE MESSELLEM,RAYANE_MESSELLEM,Toulouse FC,🇫🇷 FRA,FRA,FRA,MO,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_46,46,Yanis Ali,YANIS ALI,YANIS_ALI,Montpellier HSC,🇫🇷 FRA,FRA,FRA,BU,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_47,47,Anas Alaoui,ANAS ALAOUI,ANAS_ALAOUI,E. Francfort,🇩🇪 ALL,ALL,ALL,BU,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_48,48,Amin-Elias Gröller,AMIN ELIAS GRÖLLER,AMIN_ELIAS_GRÖLLER,Rapid Vienne,🇦🇹 AUT,AUT,AUT,DC,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_49,49,Zinedine Hasni,ZINEDINE HASNI,ZINEDINE_HASNI,OGC Nice,🇫🇷 FRA,FRA,FRA,MO,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_50,50,Yanis Cissokho,YANIS CISSOKHO,YANIS_CISSOKHO,OGC Nice,🇫🇷 FRA,FRA,FRA,MC,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_51,51,Skander Bouzamita,SKANDER BOUZAMITA,SKANDER_BOUZAMITA,Le Havre AC,🇫🇷 FRA,FRA,FRA,MC,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_52,52,Anas Haj Mohamed,ANAS HAJ MOHAMED,ANAS_HAJ_MOHAMED,Parme Calcio,🇮🇹 ITA,ITA,ITA,AI,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_53,53,Yassine Ennejah,YASSINE ENNEJAH,YASSINE_ENNEJAH,Hellas Vérone,🇮🇹 ITA,ITA,ITA,MC,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_54,54,Zayon Chtai Telamio,ZAYON CHTAI TELAMIO,ZAYON_CHTAI_TELAMIO,Paris SG,🇫🇷 FRA,FRA,FRA,DC,Espoir Elite,,0,0,0,0,0.0,0.0
+raw_55,55,Ilyas Ansah,ILYAS ANSAH,ILYAS_ANSAH,SC Paderborn,🇩🇪 ALL,ALL,ALL,BU,Pro / D2,,0,0,0,0,0.0,0.0
+raw_56,56,Youssef Amyn,YOUSSEF AMYN,YOUSSEF_AMYN,E. Braunschweig,🇩🇪 ALL,ALL,ALL,AI,Pro / D2,,0,0,0,0,0.0,0.0
+raw_57,57,Karim Coulibaly,KARIM COULIBALY,KARIM_COULIBALY,Hambourg SV,🇩🇪 ALL,ALL,ALL,DC,U19 Elite,,0,0,0,0,0.0,0.0
+raw_58,58,Elias Bencib,ELIAS BENCIB,ELIAS_BENCIB,VfB Stuttgart,🇩🇪 ALL,ALL,ALL,MC,U19 Elite,,0,0,0,0,0.0,0.0
+raw_59,59,Yanis Kaba,YANIS KABA,YANIS_KABA,Bayern Munich,🇩🇪 ALL,ALL,ALL,AI,U17 Elite,,0,0,0,0,0.0,0.0
+raw_60,60,Rayane Kasmi,RAYANE KASMI,RAYANE_KASMI,AC Milan,🇮🇹 ITA,ITA,ITA,MC,U17 Elite,,0,0,0,0,0.0,0.0
+raw_61,61,Amin Cherni,AMIN CHERNI,AMIN_CHERNI,Stade Lavallois,🇫🇷 FRA,FRA,FRA,DG,Pro / D2,,0,0,0,0,0.0,0.0
+raw_62,62,Idris El Mizouni,IDRIS EL MIZOUNI,IDRIS_EL_MIZOUNI,Oxford United,🏴 ANG,ANG,ANG,MC,Pro / D2,,0,0,0,0,0.0,0.0
+raw_63,63,Rayan Ghrieb,RAYAN GHRIEB,RAYAN_GHRIEB,Dunkerque,🇫🇷 FRA,FRA,FRA,AI,Pro / D2,,0,0,0,0,0.0,0.0
+raw_64,64,Nassim L'Ahmini,NASSIM L'AHMINI,NASSIM_L'AHMINI,Niort,🇫🇷 FRA,FRA,FRA,MC,Pro / D3,,0,0,0,0,0.0,0.0
+raw_65,65,Noa Cervantes,NOA CERVANTES,NOA_CERVANTES,Troyes AC,🇫🇷 FRA,FRA,FRA,AI,Pro / D2,,0,0,0,0,0.0,0.0
+raw_66,66,Amine Belkhir,AMINE BELKHIR,AMINE_BELKHIR,Angers SCO,🇫🇷 FRA,FRA,FRA,BU,Pro / D1,,0,0,0,0,0.0,0.0
+raw_67,67,S. Haj Abdallah,S. HAJ ABDALLAH,S._HAJ_ABDALLAH,KFC Houtvenne,🇧🇪 BEL,BEL,BEL,MC,U19 Elite,,0,0,0,0,0.0,0.0
+raw_68,68,Yassine Ben Mahmoud,YASSINE BEN MAHMOUD,YASSINE_BEN_MAHMOUD,Angers SCO,🇫🇷 FRA,FRA,FRA,AI,U19 Elite,,0,0,0,0,0.0,0.0
+raw_69,69,Samy Benchama,SAMY BENCHAMA,SAMY_BENCHAMA,Sochaux,🇫🇷 FRA,FRA,FRA,MC,Pro / D3,,0,0,0,0,0.0,0.0
+raw_70,70,Yanis Merdji,YANIS MERDJI,YANIS_MERDJI,Concarneau,🇫🇷 FRA,FRA,FRA,BU,Pro / D3,,0,0,0,0,0.0,0.0
+raw_71,71,Adil Taoui,ADIL TAOUI,ADIL_TAOUI,LASK Linz,🇦🇹 AUT,AUT,AUT,AI,Pro / D1,,0,0,0,0,0.0,0.0
+raw_72,72,Moataz Zemzemi,MOATAZ ZEMZEMI,MOATAZ_ZEMZEMI,Niort,🇫🇷 FRA,FRA,FRA,MC,Pro / D3,,0,0,0,0,0.0,0.0
+raw_73,73,Elias Damergy,ELIAS DAMERGY,ELIAS_DAMERGY,Rennes (Res.),🇫🇷 FRA,FRA,FRA,GB,Pro / D4,,0,0,0,0,0.0,0.0
+raw_74,74,Ahmed Sidibé,AHMED SIDIBÉ,AHMED_SIDIBÉ,AS St-Étienne,🇫🇷 FRA,FRA,FRA,MDC,Pro / D2,,0,0,0,0,0.0,0.0
+raw_75,75,Marwann Nzuzi,MARWANN NZUZI,MARWANN_NZUZI,AS St-Étienne,🇫🇷 FRA,FRA,FRA,AI,Pro / D2,,0,0,0,0,0.0,0.0
+raw_76,76,Seifeddine Jaziri,SEIFEDDINE JAZIRI,SEIFEDDINE_JAZIRI,Zamalek SC,🇪🇬 EGY,EGY,EGY,BU,Pro / D1,,0,0,0,0,0.0,0.0
+raw_77,77,Naim Sliti,NAIM SLITI,NAIM_SLITI,Al-Shamal SC,🇶🇦 QAT,QAT,QAT,AI,Pro / D1,,0,0,0,0,0.0,0.0
+raw_78,78,Haithem Ouaslati,HAITHEM OUASLATI,HAITHEM_OUASLATI,Inter Miami,🇺🇸 USA,USA,USA,MDC,U23 Elite,,0,0,0,0,0.0,0.0
+raw_79,79,Anis Saidi,ANIS SAIDI,ANIS_SAIDI,San Diego FC,🇺🇸 USA,USA,USA,BU,Pro / D1,,0,0,0,0,0.0,0.0
+raw_80,80,Naïm Laïdouni,NAÏM LAÏDOUNI,NAÏM_LAÏDOUNI,Umm Salal,🇶🇦 QAT,QAT,QAT,DC,Pro / D1,,0,0,0,0,0.0,0.0
+raw_81,81,Bassem Srarfi,BASSEM SRARFI,BASSEM_SRARFI,Al-Khor,🇶🇦 QAT,QAT,QAT,AI,Pro / D1,,0,0,0,0,0.0,0.0
+raw_82,82,Wajdi Sahli,WAJDI SAHLI,WAJDI_SAHLI,R. Kragujevac,🇷🇸 SER,SER,SER,AI,Pro / D1,,0,0,0,0,0.0,0.0
+raw_83,83,Ali Youssef,ALI YOUSSEF,ALI_YOUSSEF,BK Häcken,🇸🇪 SUE,SUE,SUE,BU,Pro / D1,,0,0,0,0,0.0,0.0
+raw_84,84,Amor Layouni,AMOR LAYOUNI,AMOR_LAYOUNI,BK Häcken,🇸🇪 SUE,SUE,SUE,AI,Pro / D1,,0,0,0,0,0.0,0.0
+raw_85,85,Saif-Eddine Khaoui,SAIF EDDINE KHAOUI,SAIF_EDDINE_KHAOUI,Red Star FC,🇫🇷 FRA,FRA,FRA,MO,Pro / D2,,0,0,0,0,0.0,0.0
+raw_86,86,Iliesse Salhi,ILIESSE SALHI,ILIESSE_SALHI,OGC Nice,🇫🇷 FRA,FRA,FRA,DC,U19 Elite,,0,0,0,0,0.0,0.0
+raw_87,87,Mohamed Sissoko,MOHAMED SISSOKO,MOHAMED_SISSOKO,VfB Stuttgart,🇩🇪 ALL,ALL,ALL,MC,U19 Elite,,0,0,0,0,0.0,0.0
+raw_88,88,Kais Benabdelouahed,KAIS BENABDELOUAHED,KAIS_BENABDELOUAHED,(Allemagne),🇩🇪 ALL,ALL,ALL,DC,U17 Elite,,0,0,0,0,0.0,0.0
+raw_89,89,Yanis Bourbia,YANIS BOURBIA,YANIS_BOURBIA,(France),🇫🇷 FRA,FRA,FRA,MC,U20 Elite,,0,0,0,0,0.0,0.0
+raw_90,90,Sabri Cherif,SABRI CHERIF,SABRI_CHERIF,(Belgique),🇧🇪 BEL,BEL,BEL,DG,U17 Elite,,0,0,0,0,0.0,0.0
+raw_91,91,Rami Ben Brahim,RAMI BEN BRAHIM,RAMI_BEN_BRAHIM,(Belgique),🇧🇪 BEL,BEL,BEL,GB,U23 Elite,,0,0,0,0,0.0,0.0
+raw_92,92,Ilyes Merdji,ILYES MERDJI,ILYES_MERDJI,Ol. Lyonnais,🇫🇷 FRA,FRA,FRA,MC,U17 Elite,,0,0,0,0,0.0,0.0
+raw_93,93,Alison Santos,ALISON SANTOS,ALISON_SANTOS,Sporting CP,🇵🇹 POR,POR,POR,AI,U19 Elite,,0,0,0,0,0.0,0.0
+raw_94,94,Nils De Wilde,NILS DE WILDE,NILS_DE_WILDE,Cercle Bruges,🇧🇪 BEL,BEL,BEL,MDC,Pro / D1,,0,0,0,0,0.0,0.0
+raw_95,95,Yassine Fortune,YASSINE FORTUNE,YASSINE_FORTUNE,(Europe),🇪🇺 EUR,EUR,EUR,BU,Pro / D2,,0,0,0,0,0.0,0.0
+raw_96,96,Adam Yousfi,ADAM YOUSFI,ADAM_YOUSFI,Lille OSC,🇫🇷 FRA,FRA,FRA,AI,U19 Elite,,0,0,0,0,0.0,0.0
+raw_97,97,Yanis Lhéry,YANIS LHÉRY,YANIS_LHÉRY,(France),🇫🇷 FRA,FRA,FRA,BU,Pro / D3,,0,0,0,0,0.0,0.0
+raw_98,98,Marwan El-Hassani,MARWAN EL HASSANI,MARWAN_EL_HASSANI,(France),🇫🇷 FRA,FRA,FRA,AI,Pro / D3,,0,0,0,0,0.0,0.0
+raw_99,99,Rayan Lutin,RAYAN LUTIN,RAYAN_LUTIN,(France),🇫🇷 FRA,FRA,FRA,MO,Pro / D3,,0,0,0,0,0.0,0.0
+raw_100,100,Yanis El Khayari,YANIS EL KHAYARI,YANIS_EL_KHAYARI,(France),🇫🇷 FRA,FRA,FRA,MC,U19 Elite,,0,0,0,0,0.0,0.0
+raw_101,101,Wajdi Kechrida,WAJDI KECHRIDA,WAJDI_KECHRIDA,Atromitos,🇬🇷 GRE,GRE,GRE,DD,Elite A,,0,0,0,0,0.0,0.0
+raw_102,102,Oussama Haddadi,OUSSAMA HADDADI,OUSSAMA_HADDADI,Greuther Fürth,🇩🇪 ALL,ALL,ALL,DC,Elite A,,0,0,0,0,0.0,0.0
+raw_103,103,Mohamed Dräger,MOHAMED DRÄGER,MOHAMED_DRÄGER,FC Bâle,🇨🇭 SUI,SUI,SUI,DD,Elite A,,0,0,0,0,0.0,0.0
+raw_104,104,Rami Kaib,RAMI KAIB,RAMI_KAIB,Djurgårdens IF,🇸🇪 SUE,SUE,SUE,DG,Elite A,,0,0,0,0,0.0,0.0
+raw_105,105,Adam Daghim,ADAM DAGHIM,ADAM_DAGHIM,RB Salzbourg,🇦🇹 AUT,AUT,AUT,AI,Binational,,0,0,0,0,0.0,0.0
+raw_106,106,Borna Pejicic,BORNA PEJICIC,BORNA_PEJICIC,Udinese,🇮🇹 ITA,ITA,ITA,DC,Scouting U20,,0,0,0,0,0.0,0.0
+raw_107,107,Gianni d'Angelo,GIANNI D'ANGELO,GIANNI_D'ANGELO,KAS Eupen,🇧🇪 BEL,BEL,BEL,MC,Scouting U20,,0,0,0,0,0.0,0.0
+raw_108,108,Adam Abed,ADAM ABED,ADAM_ABED,LOSC Lille,🇫🇷 FRA,FRA,FRA,DC,Scouting U20,,0,0,0,0,0.0,0.0
+raw_109,109,Adam Karabi,ADAM KARABI,ADAM_KARABI,AS Saint-Étienne,🇫🇷 FRA,FRA,FRA,MC,Scouting U17,,0,0,0,0,0.0,0.0
+raw_110,110,Wassim Khediri,WASSIM KHEDIRI,WASSIM_KHEDIRI,FC Metz,🇫🇷 FRA,FRA,FRA,DC,Scouting U17,,0,0,0,0,0.0,0.0
+raw_111,111,Rayan Jabari,RAYAN JABARI,RAYAN_JABARI,Stade Rennais,🇫🇷 FRA,FRA,FRA,MC,Scouting U17,,0,0,0,0,0.0,0.0
+raw_112,112,Zakaria El Ayari,ZAKARIA EL AYARI,ZAKARIA_EL_AYARI,(Filière Italie),🇮🇹 ITA,ITA,ITA,DC,Scouting U20,,0,0,0,0,0.0,0.0
+raw_113,113,Hedi M'Hamdi,HEDI M'HAMDI,HEDI_M'HAMDI,FC Chiasso,🇨🇭 SUI,SUI,SUI,BU,Scouting U20,,0,0,0,0,0.0,0.0
+raw_114,114,Sofiane Ghorbel,SOFIANE GHORBEL,SOFIANE_GHORBEL,FC Metz,🇫🇷 FRA,FRA,FRA,DC,Scouting U23,,0,0,0,0,0.0,0.0
+raw_115,115,Yanis Hamzaoui,YANIS HAMZAOUI,YANIS_HAMZAOUI,Troyes AC,🇫🇷 FRA,FRA,FRA,DC,Scouting U17,,0,0,0,0,0.0,0.0
+raw_116,116,Adrien Ragotten,ADRIEN RAGOTTEN,ADRIEN_RAGOTTEN,Stade Brestois,🇫🇷 FRA,FRA,FRA,DD,Scouting U20,,0,0,0,0,0.0,0.0
+raw_117,117,Sami Faraj,SAMI FARAJ,SAMI_FARAJ,FC Annecy,🇫🇷 FRA,FRA,FRA,MC,Pro / D2,,0,0,0,0,0.0,0.0
+raw_118,118,Haykeul Chikhaoui,HAYKEUL CHIKHAOUI,HAYKEUL_CHIKHAOUI,Ajman Club,🇦🇪 EAU,EAU,EAU,MC,Pro / D1,,0,0,0,0,0.0,0.0
+raw_119,119,T. Yassine Khenissi,T. YASSINE KHENISSI,T._YASSINE_KHENISSI,Kuwait SC,🇰🇼 KOW,KOW,KOW,BU,Pro / D1,,0,0,0,0,0.0,0.0
+raw_120,120,Bilel Ifa,BILEL IFA,BILEL_IFA,Kuwait SC,🇰🇼 KOW,KOW,KOW,DC,Pro / D1,,0,0,0,0,0.0,0.0
+raw_121,121,Malik Talabidi,MALIK TALABIDI,MALIK_TALABIDI,(Libre),🇩🇪 ALL,ALL,ALL,DC,Scouting Elite,,0,0,0,0,0.0,0.0
+raw_122,122,Yassine Belkhdim,YASSINE BELKHDIM,YASSINE_BELKHDIM,Angers SCO,🇫🇷 FRA,FRA,FRA,MC,Pro / D2,,0,0,0,0,0.0,0.0
+raw_123,123,Sami Belkorchia,SAMI BELKORCHIA,SAMI_BELKORCHIA,Quevilly-Rouen,🇫🇷 FRA,FRA,FRA,DC,Pro / D3,,0,0,0,0,0.0,0.0
+raw_124,124,Yoann Touzghar,YOANN TOUZGHAR,YOANN_TOUZGHAR,AC Ajaccio,🇫🇷 FRA,FRA,FRA,BU,Pro / D2,,0,0,0,0,0.0,0.0
+raw_125,125,Bilel Ait Malek,BILEL AIT MALEK,BILEL_AIT_MALEK,(Europe),🇪🇺 EUR,EUR,EUR,MC,Scouting,,0,0,0,0,0.0,0.0
+raw_126,126,Ayman Ben Mohamed,AYMAN BEN MOHAMED,AYMAN_BEN_MOHAMED,(Europe),🇪🇺 EUR,EUR,EUR,DG,Elite A,,0,0,0,0,0.0,0.0
+raw_127,127,Marc Lamti,MARC LAMTI,MARC_LAMTI,(Allemagne),🇩🇪 ALL,ALL,ALL,DC,Elite A,,0,0,0,0,0.0,0.0
+raw_128,128,Driss Khalid,DRISS KHALID,DRISS_KHALID,(France),🇫🇷 FRA,FRA,FRA,MO,Pro / D3,,0,0,0,0,0.0,0.0
+raw_129,129,Yanis Maronne,YANIS MARONNE,YANIS_MARONNE,(France),🇫🇷 FRA,FRA,FRA,MC,U19,,0,0,0,0,0.0,0.0
+raw_130,130,Adel Belkacem,ADEL BELKACEM,ADEL_BELKACEM,(France),🇫🇷 FRA,FRA,FRA,DC,U19,,0,0,0,0,0.0,0.0
+raw_131,131,Karim El Abed,KARIM EL ABED,KARIM_EL_ABED,Karlsruher SC,🇩🇪 ALL,ALL,ALL,DC,U19,,0,0,0,0,0.0,0.0
+raw_132,132,Noah Nadir,NOAH NADIR,NOAH_NADIR,(France),🇫🇷 FRA,FRA,FRA,MC,U19,,0,0,0,0,0.0,0.0
+raw_133,133,Adam Ben Salah,ADAM BEN SALAH,ADAM_BEN_SALAH,(France),🇫🇷 FRA,FRA,FRA,DC,U19,,0,0,0,0,0.0,0.0
+raw_134,134,Rayan El Khayari,RAYAN EL KHAYARI,RAYAN_EL_KHAYARI,(France),🇫🇷 FRA,FRA,FRA,MC,U19,,0,0,0,0,0.0,0.0
+raw_135,135,Bilel Ghazi,BILEL GHAZI,BILEL_GHAZI,(France),🇫🇷 FRA,FRA,FRA,BU,U20,,0,0,0,0,0.0,0.0
+raw_136,136,Sami El-Abbassi,SAMI EL ABBASSI,SAMI_EL_ABBASSI,(Allemagne),🇩🇪 ALL,ALL,ALL,DC,U20,,0,0,0,0,0.0,0.0
+raw_137,137,Selim Ben Djemia,SELIM BEN DJEMIA,SELIM_BEN_DJEMIA,(Vétéran/Filière),🇪🇺 EUR,EUR,EUR,DC,Elite A,,0,0,0,0,0.0,0.0
+raw_138,138,Samy Kehli,SAMY KEHLI,SAMY_KEHLI,(Europe),🇪🇺 EUR,EUR,EUR,MC,Pro,,0,0,0,0,0.0,0.0
+raw_139,139,Sofiane Khayat,SOFIANE KHAYAT,SOFIANE_KHAYAT,(France),🇫🇷 FRA,FRA,FRA,MC,Pro,,0,0,0,0,0.0,0.0
+raw_140,140,Elias Khediri,ELIAS KHEDIRI,ELIAS_KHEDIRI,(France),🇫🇷 FRA,FRA,FRA,DC,U19,,0,0,0,0,0.0,0.0
+raw_141,141,Tayssir Badji,TAYSSIR BADJI,TAYSSIR_BADJI,(France),🇫🇷 FRA,FRA,FRA,MC,U17,,0,0,0,0,0.0,0.0
+raw_142,142,Nassim L'Ahmini,NASSIM L'AHMINI,NASSIM_L'AHMINI,(Récupération),🇫🇷 FRA,FRA,FRA,MC,Scouting,,0,0,0,0,0.0,0.0
+raw_143,143,Elias Benali,ELIAS BENALI,ELIAS_BENALI,Montpellier HSC,🇫🇷 FRA,FRA,FRA,MC,U19,,0,0,0,0,0.0,0.0
+raw_144,144,Rayane Bouhanni,RAYANE BOUHANNI,RAYANE_BOUHANNI,RC Strasbourg,🇫🇷 FRA,FRA,FRA,MC,U19,,0,0,0,0,0.0,0.0
+raw_145,145,Mehdi Zerkane,MEHDI ZERKANE,MEHDI_ZERKANE,(Libre/Filière),🇪🇺 EUR,EUR,EUR,MO,Elite A,,0,0,0,0,0.0,0.0
+raw_146,146,Samir Benama,SAMIR BENAMA,SAMIR_BENAMA,(France),🇫🇷 FRA,FRA,FRA,MDC,U17,,0,0,0,0,0.0,0.0
+raw_147,147,Ayman El Wafi,AYMAN EL WAFI,AYMAN_EL_WAFI,(Vérification),🇨🇭 SUI,SUI,SUI,DC,Scouting,,0,0,0,0,0.0,0.0
+raw_148,148,Bilel Hassaini,BILEL HASSAINI,BILEL_HASSAINI,(France),🇫🇷 FRA,FRA,FRA,AI,Pro,,0,0,0,0,0.0,0.0
+raw_149,149,Yassine Kechta,YASSINE KECHTA,YASSINE_KECHTA,(Attention/Filtre),🇫🇷 FRA,FRA,FRA,MC,Scouting,,0,0,0,0,0.0,0.0
+raw_150,150,Wajdi Sahli,WAJDI SAHLI,WAJDI_SAHLI,R. Kragujevac,🇷🇸 SER,SER,SER,AI,Elite A,,0,0,0,0,0.0,0.0
