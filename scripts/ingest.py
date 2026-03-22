@@ -15,14 +15,13 @@ def normalize_name(name: str) -> str:
 
 
 def slugify_name(name: str) -> str:
-    normalized = normalize_name(name)
-    return normalized.replace(" ", "_")
+    return normalize_name(name).replace(" ", "_")
 
 
 def to_int(value: str) -> int:
     try:
         return int(value)
-    except (TypeError, ValueError):
+    except:
         return 0
 
 
@@ -37,13 +36,10 @@ def load_players():
         raise FileNotFoundError(f"Fichier introuvable: {INPUT_CSV}")
 
     with INPUT_CSV.open("r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        rows = list(reader)
-
-    return rows
+        return list(csv.DictReader(f))
 
 
-def enrich_players(players: list[dict]) -> list[dict]:
+def enrich_players(players):
     enriched = []
 
     for player in players:
@@ -52,47 +48,37 @@ def enrich_players(players: list[dict]) -> list[dict]:
         item["normalized_name"] = normalize_name(player["full_name"])
         item["slug"] = slugify_name(player["full_name"])
 
-        appearances = to_int(player.get("appearances"))
-        minutes_played = to_int(player.get("minutes_played"))
-        goals = to_int(player.get("goals"))
-        assists = to_int(player.get("assists"))
+        item["appearances"] = to_int(player.get("appearances"))
+        item["minutes_played"] = to_int(player.get("minutes_played"))
+        item["goals"] = to_int(player.get("goals"))
+        item["assists"] = to_int(player.get("assists"))
 
-        item["appearances"] = appearances
-        item["minutes_played"] = minutes_played
-        item["goals"] = goals
-        item["assists"] = assists
-        item["goals_per_90"] = per_90(goals, minutes_played)
-        item["assists_per_90"] = per_90(assists, minutes_played)
+        item["goals_per_90"] = per_90(item["goals"], item["minutes_played"])
+        item["assists_per_90"] = per_90(item["assists"], item["minutes_played"])
 
         enriched.append(item)
 
     return enriched
 
 
-def save_players(players: list[dict]):
+def save_players(players):
     if not players:
-        print("Aucun joueur à sauvegarder.")
         return
 
     OUTPUT_CSV.parent.mkdir(parents=True, exist_ok=True)
 
-    fieldnames = list(players[0].keys())
-
     with OUTPUT_CSV.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(f, fieldnames=players[0].keys())
         writer.writeheader()
         writer.writerows(players)
 
 
 def main():
     players = load_players()
-    enriched_players = enrich_players(players)
-    save_players(enriched_players)
+    enriched = enrich_players(players)
+    save_players(enriched)
 
     print(f"Nombre de joueurs chargés : {len(players)}")
-    print(f"Fichier généré : {OUTPUT_CSV}")
-    print("Premier joueur enrichi :")
-    print(enriched_players[0] if enriched_players else "Aucun joueur")
 
 
 if __name__ == "__main__":

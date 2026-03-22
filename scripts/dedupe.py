@@ -8,20 +8,23 @@ OUTPUT_CSV = Path("data/normalized/duplicate_candidates.csv")
 REVIEW_JSON = Path("data/review/needs_review.json")
 
 
-def similarity(a: str, b: str) -> float:
+def similarity(a, b):
     return round(SequenceMatcher(None, a, b).ratio(), 3)
 
 
-def load_players() -> list[dict]:
-    if not INPUT_CSV.exists():
-        raise FileNotFoundError(f"Fichier introuvable: {INPUT_CSV}")
-
+def load_players():
     with INPUT_CSV.open("r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        return list(reader)
+        return list(csv.DictReader(f))
 
 
-def find_duplicate_candidates(players: list[dict], threshold: float = 0.88) -> list[dict]:
+def is_strict_mismatch(a, b):
+    # règle métier simple
+    if a.get("date_of_birth") and b.get("date_of_birth"):
+        return a["date_of_birth"] != b["date_of_birth"]
+    return False
+
+
+def find_duplicate_candidates(players, threshold=0.88):
     candidates = []
 
     for i in range(len(players)):
@@ -29,22 +32,18 @@ def find_duplicate_candidates(players: list[dict], threshold: float = 0.88) -> l
             a = players[i]
             b = players[j]
 
-            name_a = a.get("normalized_name", "").strip()
-            name_b = b.get("normalized_name", "").strip()
-
-            if not name_a or not name_b:
-                continue
+            name_a = a["normalized_name"]
+            name_b = b["normalized_name"]
 
             score = similarity(name_a, name_b)
 
+            if is_strict_mismatch(a, b):
+                continue
+
             if name_a == name_b or score >= threshold:
                 candidates.append({
-                    "player_id_a": a.get("player_id", ""),
-                    "full_name_a": a.get("full_name", ""),
-                    "normalized_name_a": name_a,
-                    "player_id_b": b.get("player_id", ""),
-                    "full_name_b": b.get("full_name", ""),
-                    "normalized_name_b": name_b,
+                    "player_id_a": a["player_id"],
+                    "player_id_b": b["player_id"],
                     "similarity_score": score,
                     "reason": "exact_match" if name_a == name_b else "high_similarity"
                 })
@@ -52,69 +51,39 @@ def find_duplicate_candidates(players: list[dict], threshold: float = 0.88) -> l
     return candidates
 
 
-def split_candidates(candidates: list[dict]) -> tuple[list[dict], list[dict]]:
+def split_candidates(candidates):
     confirmed = []
     needs_review = []
 
-    for candidate in candidates:
-        if candidate["reason"] == "exact_match":
-            confirmed.append(candidate)
+    for c in candidates:
+        if c["reason"] == "exact_match":
+            confirmed.append(c)
         else:
-            needs_review.append(candidate)
+            needs_review.append(c)
 
     return confirmed, needs_review
 
 
-def save_candidates(candidates: list[dict]):
+def save(candidates, review):
     OUTPUT_CSV.parent.mkdir(parents=True, exist_ok=True)
 
-    fieldnames = [
-        "player_id_a",
-        "full_name_a",
-        "normalized_name_a",
-        "player_id_b",
-        "full_name_b",
-        "normalized_name_b",
-        "similarity_score",
-        "reason",
-    ]
-
-    with OUTPUT_CSV.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(candidates)
-
-
-def save_review(needs_review: list[dict]):
-    REVIEW_JSON.parent.mkdir(parents=True, exist_ok=True)
-
-    payload = {
-        "count": len(needs_review),
-        "items": needs_review
-    }
+    with OUTPUT_CSV.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=candidates[0].keys() if candidates else [])
+        if candidates:
+            writer.writeheader()
+            writer.writerows(candidates)
 
     with REVIEW_JSON.open("w", encoding="utf-8") as f:
-        json.dump(payload, f, ensure_ascii=False, indent=2)
+        json.dump({"count": len(review), "items": review}, f, indent=2)
 
 
 def main():
     players = load_players()
     candidates = find_duplicate_candidates(players)
-    confirmed, needs_review = split_candidates(candidates)
+    confirmed, review = split_candidates(candidates)
+    save(candidates, review)
 
-    save_candidates(candidates)
-    save_review(needs_review)
-
-    print(f"Nombre de joueurs analysés : {len(players)}")
-    print(f"Nombre de candidats doublons : {len(candidates)}")
-    print(f"Doublons exacts : {len(confirmed)}")
-    print(f"Cas à revoir : {len(needs_review)}")
-    print(f"Fichier généré : {OUTPUT_CSV}")
-    print(f"Fichier revue : {REVIEW_JSON}")
-
-    if candidates:
-        print("Premier candidat :")
-        print(candidates[0])
+    print(f"Doublons: {len(candidates)} | Review: {len(review)}")
 
 
 if __name__ == "__main__":

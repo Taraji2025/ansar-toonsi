@@ -1,4 +1,4 @@
-player_id,full_name,current_club,primary_position,appearances,minutes_played,goals,assists,normalized_name,slug,goals_per_90,assists_per_90
-tn001,Hannibal Mejbri,Sevilla,Midfielder,18,1040,2,3,HANNIBAL MEJBRI,HANNIBAL_MEJBRI,0.173,0.26
-tn002,Elias Achouri,Copenhagen,Winger,22,1670,5,7,ELIAS ACHOURI,ELIAS_ACHOURI,0.269,0.377
-tn003,Montasr Talbi,Lorient,Defender,20,1800,1,0,MONTASR TALBI,MONTASR_TALBI,0.05,0.0
+player_id,full_name,current_club,primary_position,date_of_birth,nationality,appearances,minutes_played,goals,assists,normalized_name,slug,goals_per_90,assists_per_90
+tn001,Hannibal Mejbri,Sevilla,Midfielder,2003-01-21,Tunisia,18,1040,2,3,HANNIBAL MEJBRI,HANNIBAL_MEJBRI,0.173,0.26
+tn002,Elias Achouri,Copenhagen,Winger,1999-02-10,Tunisia,22,1670,5,7,ELIAS ACHOURI,ELIAS_ACHOURI,0.269,0.377
+tn003,Montasr Talbi,Lorient,Defender,1998-05-25,Tunisia,20,1800,1,0,MONTASR TALBI,MONTASR_TALBI,0.05,0.0
