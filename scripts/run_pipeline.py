@@ -1,5 +1,6 @@
 from scripts.ingest import main as run_ingest
 from scripts.dedupe import main as run_dedupe
+from scripts.review_summary import main as run_review_summary
 
 
 def main():
@@ -8,6 +9,9 @@ def main():
 
     print("\n=== Étape 2 : détection de doublons ===")
     run_dedupe()
+
+    print("\n=== Étape 3 : résumé humain des cas à revoir ===")
+    run_review_summary()
 
     print("\nPipeline terminé avec succès.")
 
