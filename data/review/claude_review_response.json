@@ -1,0 +1,11 @@
+{
+  "reviews": [
+    {
+      "player_id_a": "tn001",
+      "player_id_b": "tn004",
+      "decision": "merge",
+      "confidence": 0.97,
+      "reason": "Même nom, même date de naissance et même club"
+    }
+  ]
+}
