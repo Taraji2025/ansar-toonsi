@@ -1,9 +1,3 @@
-player_id_a,full_name_a,normalized_name_a,date_of_birth_a,nationality_a,current_club_a,primary_position_a,player_id_b,full_name_b,normalized_name_b,date_of_birth_b,nationality_b,current_club_b,primary_position_b,score,label
-raw_8,Aïssa Laïdouni,AÏSSA LAÏDOUNI,,QAT,Al-Wakrah SC,MC,raw_80,Naïm Laïdouni,NAÏM LAÏDOUNI,,QAT,Umm Salal,DC,0.889,review
-raw_32,Mayssam Benama,MAYSSAM BENAMA,,FRA,AS Monaco,MC,raw_146,Samir Benama,SAMIR BENAMA,,FRA,(France),MDC,0.861,review
-raw_64,Nassim L'Ahmini,NASSIM L'AHMINI,,FRA,Niort,MC,raw_142,Nassim L'Ahmini,NASSIM L'AHMINI,,FRA,(Récupération),MC,1.0,strong_match
-raw_66,Amine Belkhir,AMINE BELKHIR,,FRA,Angers SCO,BU,raw_122,Yassine Belkhdim,YASSINE BELKHDIM,,FRA,Angers SCO,MC,0.855,review
-raw_69,Samy Benchama,SAMY BENCHAMA,,FRA,Sochaux,MC,raw_146,Samir Benama,SAMIR BENAMA,,FRA,(France),MDC,0.88,review
-raw_70,Yanis Merdji,YANIS MERDJI,,FRA,Concarneau,BU,raw_92,Ilyes Merdji,ILYES MERDJI,,FRA,Ol. Lyonnais,MC,0.85,review
-raw_82,Wajdi Sahli,WAJDI SAHLI,,SER,R. Kragujevac,AI,raw_150,Wajdi Sahli,WAJDI SAHLI,,SER,R. Kragujevac,AI,1.0,strong_match
-raw_100,Yanis El Khayari,YANIS EL KHAYARI,,FRA,(France),MC,raw_134,Rayan El Khayari,RAYAN EL KHAYARI,,FRA,(France),MC,0.925,review
+pair_key,player_id_a,full_name_a,normalized_name_a,date_of_birth_a,nationality_a,current_club_a,primary_position_a,player_id_b,full_name_b,normalized_name_b,date_of_birth_b,nationality_b,current_club_b,primary_position_b,score,label
+raw_142::raw_64,raw_64,Nassim L'Ahmini,NASSIM L'AHMINI,,FRA,Niort,MC,raw_142,Nassim L'Ahmini,NASSIM L'AHMINI,,FRA,(Récupération),MC,1.0,strong_match
+raw_150::raw_82,raw_82,Wajdi Sahli,WAJDI SAHLI,,SER,R. Kragujevac,AI,raw_150,Wajdi Sahli,WAJDI SAHLI,,SER,R. Kragujevac,AI,1.0,strong_match

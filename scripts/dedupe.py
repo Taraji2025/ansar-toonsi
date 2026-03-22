@@ -6,6 +6,7 @@ from difflib import SequenceMatcher
 INPUT_CSV = Path("data/normalized/players_normalized.csv")
 OUTPUT_CSV = Path("data/normalized/duplicate_candidates.csv")
 REVIEW_JSON = Path("data/review/needs_review.json")
+RESOLUTION_LOG = Path("data/review/resolution_log.json")
 
 
 def similarity(a, b):
@@ -39,6 +40,21 @@ def load_players():
         return list(csv.DictReader(f))
 
 
+def pair_key(player_id_a: str, player_id_b: str) -> str:
+    ordered = sorted([player_id_a, player_id_b])
+    return f"{ordered[0]}::{ordered[1]}"
+
+
+def load_resolution_keys():
+    if not RESOLUTION_LOG.exists():
+        return set()
+
+    with RESOLUTION_LOG.open("r", encoding="utf-8") as f:
+        payload = json.load(f)
+
+    return {item.get("pair_key") for item in payload.get("items", []) if item.get("pair_key")}
+
+
 def classify(score):
     if score >= 0.95:
         return "strong_match"
@@ -50,11 +66,16 @@ def classify(score):
 
 def find_candidates(players):
     results = []
+    resolved_keys = load_resolution_keys()
 
     for i in range(len(players)):
         for j in range(i + 1, len(players)):
             a = players[i]
             b = players[j]
+
+            current_pair_key = pair_key(a["player_id"], b["player_id"])
+            if current_pair_key in resolved_keys:
+                continue
 
             score = compute_match_score(a, b)
             label = classify(score)
@@ -63,6 +84,7 @@ def find_candidates(players):
                 continue
 
             results.append({
+                "pair_key": current_pair_key,
                 "player_id_a": a["player_id"],
                 "full_name_a": a.get("full_name", ""),
                 "normalized_name_a": a.get("normalized_name", ""),
@@ -106,6 +128,9 @@ def save(results, review):
             writer = csv.DictWriter(f, fieldnames=results[0].keys())
             writer.writeheader()
             writer.writerows(results)
+    else:
+        with OUTPUT_CSV.open("w", newline="", encoding="utf-8") as f:
+            f.write("")
 
     with REVIEW_JSON.open("w", encoding="utf-8") as f:
         json.dump({"count": len(review), "items": review}, f, indent=2, ensure_ascii=False)
