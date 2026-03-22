@@ -1,11 +1,46 @@
 {
   "reviews": [
     {
-      "player_id_a": "tn001",
-      "player_id_b": "tn004",
-      "decision": "merge",
-      "confidence": 0.97,
-      "reason": "Même nom, même date de naissance et même club"
+      "player_id_a": "raw_8",
+      "player_id_b": "raw_80",
+      "decision": "keep_separate",
+      "confidence": 0.95,
+      "reason": "Même nom de famille mais prénom différent"
+    },
+    {
+      "player_id_a": "raw_32",
+      "player_id_b": "raw_146",
+      "decision": "keep_separate",
+      "confidence": 0.84,
+      "reason": "Nom proche mais identité insuffisamment convergente"
+    },
+    {
+      "player_id_a": "raw_66",
+      "player_id_b": "raw_122",
+      "decision": "keep_separate",
+      "confidence": 0.83,
+      "reason": "Patronyme partiellement proche mais joueurs distincts"
+    },
+    {
+      "player_id_a": "raw_69",
+      "player_id_b": "raw_146",
+      "decision": "keep_separate",
+      "confidence": 0.81,
+      "reason": "Ressemblance phonétique insuffisante pour fusion"
+    },
+    {
+      "player_id_a": "raw_70",
+      "player_id_b": "raw_92",
+      "decision": "keep_separate",
+      "confidence": 0.92,
+      "reason": "Même nom de famille mais prénom différent"
+    },
+    {
+      "player_id_a": "raw_100",
+      "player_id_b": "raw_134",
+      "decision": "keep_separate",
+      "confidence": 0.9,
+      "reason": "Même nom de famille mais prénom différent"
     }
   ]
 }
