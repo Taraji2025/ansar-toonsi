@@ -39,7 +39,7 @@
       "player_id_a": "raw_100",
       "player_id_b": "raw_134",
       "decision": "keep_separate",
-      "confidence": 0.9,
+      "confidence": 0.90,
       "reason": "Même nom de famille mais prénom différent"
     }
   ]
